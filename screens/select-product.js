@@ -79,7 +79,7 @@ function Select({ route }) {
                 <TextInput style={[styles.txtinput,{color:'blue'}]} value={icoMon.toString()+calcular(cantidad, price, descuento).toString()} editable={false} />
             </View>
             <TouchableOpacity style={[styles.btn, valbuton(price, cantidad) ? styles.enable : styles.disabled]} onPress={() => addDates()} >
-                <Text style={{ fontSize: 20 }}>Agregrar</Text>
+                <Text style={{ fontSize: 20 }}>Agregar</Text>
             </TouchableOpacity>
         </View>
     );

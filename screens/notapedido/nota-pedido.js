@@ -4,15 +4,15 @@ import { Contex } from "../../components/global/globalContex";
 import ListProduct from "../../components/base/list-product";
 import { useNavigation } from "@react-navigation/native";
 import Query from "../../data/querys";
-import RNPickerSelect from "react-native-picker-select";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Dropdown } from 'react-native-element-dropdown';
 function NotaPedido(){
     const navigation = useNavigation();
     const globalContex = useContext(Contex)
     const {cliente,data,setData,dominio,almacenes,ubicacion,precios,cred,moneda,setMoneda,setIcoMon,alm,setAlm,local,setLocal,p,setP} = globalContex
     const [searchPro,setSearchPro] = useState('')
     const [datacopy,setDataCopy] = useState([])
-    const [price, setPrice] = useState(parseInt(precios[0].codigo));
+  
   
     
       const vals = almacenes.map(item => ({
@@ -39,6 +39,7 @@ function NotaPedido(){
         setData(resproduct)
         setDataCopy(resproduct)
     }
+    
     const simbolMoneda = (itemValue)=>{
         setMoneda(itemValue)
         if(itemValue=='USD'){
@@ -62,53 +63,105 @@ function NotaPedido(){
             </View>
             <View style={{marginBottom:5}}>
                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                    <TextInput placeholder="Buscar Producto" value={searchPro} onChangeText={setSearchPro} style={{borderBottomWidth:1,marginLeft:5,width:'50%'}}/>
-                    <TouchableOpacity onPress={()=>buscador(searchPro)} style={{marginStart:0}} >
+                    <TextInput placeholder="Buscar Producto" value={searchPro.toUpperCase()} onChangeText={setSearchPro} style={{borderBottomWidth:1,marginLeft:5,width:'50%'}}/>
+                    <TouchableOpacity onPress={()=>buscador(searchPro.toUpperCase())} style={{marginStart:0}} >
                         <Icon name="search" size={22} color="#000" style={{marginTop:30,marginRight:20}} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.btn,{marginTop:10}]} onPress={()=>fetchData(price)}>
+                    <TouchableOpacity style={[styles.btn,{marginTop:10}]} onPress={()=>fetchData(p)}>
                         <Text style={{fontSize:20}}>Cargar <Icon name="download" size={22} color="blue" /></Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:10,marginTop:10}}>
                     
-                    <View>
-                        <RNPickerSelect
-                        onValueChange={(value) => setAlm(value)}
-                        items={vals} doneText="Cerrar"
-                        placeholder={{ label: "Almacen", value: null }}
-
-                        />
+                    <View style={{width:'50%'}}>
+                        
+                        <Dropdown
+                            style={styles.dropdown}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={vals}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder="ALMACEN"
+                            searchPlaceholder="Buscar..."
+                            value={alm}
+                            onChange={item => {
+                                setAlm(item.value);
+                            }}
+                            />
                     </View>
-                   <View>
-                    <RNPickerSelect
-                        onValueChange={(value) => setLocal(value)}
-                        items={vals1}
-                        doneText="Cerrar"
-                        placeholder={{ label: "Ubicacion", value: null }}
+                   <View style={{width:"50%"}}>
+                    
+                    <Dropdown
+                        style={styles.dropdown}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        iconStyle={styles.iconStyle}
+                        data={vals1}
+                        search
+                        maxHeight={300}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="UBICACION"
+                        searchPlaceholder="Buscar..."
+                        value={local}
+                        onChange={item => {
+                            setLocal(item.value);
+                        }}
                         />
                    </View>
 
                 </View> 
                 <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:10,marginTop:10}}>
-                    <View>
-                        <RNPickerSelect
-                        onValueChange={(value) => setPrice(value)}
-                        items={vals2} doneText="Cerrar"
-                        placeholder={{ label: "Precios", value: null,color:'blue' }}
+                    <View style={{width:'50%'}}>
                         
+                        <Dropdown
+                        style={styles.dropdown}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        iconStyle={styles.iconStyle}
+                        data={vals2}
+                        search
+                        maxHeight={300}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="LISTA PRECIOS"
+                        searchPlaceholder="Buscar..."
+                        value={p}
+                        onChange={item => {
+                            setP(item.value);
+                        }}
                         />
                     </View>
-                    <View>
-                    <RNPickerSelect
-                        onValueChange={(value) => simbolMoneda(value)}
-                        items={[
+                    <View style={{width:'50%'}}>
+                    
+                    <Dropdown
+                        style={styles.dropdown}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        iconStyle={styles.iconStyle}
+                        data={[
                             {label:'USD',value:'USD'},
                             {label:'PEN',value:'PEN'},
-                        ]} doneText="Cerrar"
-                        placeholder={{ label: "Moneda", value: null,color:'blue' }}
-                        
-                    />
+                        ]}
+                        search
+                        maxHeight={300}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="MONEDA"
+                        searchPlaceholder="Buscar..."
+                        value={moneda}
+                        onChange={item => {
+                            simbolMoneda(item.value);
+                        }}
+                        />
                     </View>
                     
                 </View> 
@@ -156,6 +209,13 @@ const styles = StyleSheet.create({
     textbtn:{
         fontSize:15,
         
-    }
+    },
+    dropdown: {
+      height: 30,
+      borderColor: 'gray',
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 5,
+    },
 });
 export default NotaPedido;

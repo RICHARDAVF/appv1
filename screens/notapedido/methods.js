@@ -2,6 +2,7 @@ import {Component } from "react";
 import { View,Text, StyleSheet, Alert,TouchableOpacity, TextInput } from "react-native";
 import { Contex } from "../../components/global/globalContex";
 import RNPickerSelect from "react-native-picker-select";
+import { Dropdown } from 'react-native-element-dropdown';
 
 class  Methods extends Component{
   static contextType = Contex;
@@ -22,7 +23,7 @@ class  Methods extends Component{
     
   }
     savedata(){
-        Alert.alert('Se guardo exitosamente')
+        
         this.props.navigation.navigate('NotaPedido');
         const {setProductos,setCliente} = this.context;
         setProductos([])
@@ -50,6 +51,7 @@ class  Methods extends Component{
 
     async registrarPedido(){
       const {dominio,productos,cliente,local,alm,cred,userLogged,p} = this.context;
+      
       const response = await fetch(`${dominio}/api/product/venta/add/`,{
         method:'POST',
         headers:{
@@ -72,7 +74,14 @@ class  Methods extends Component{
         })
       })
       const data = await response.json()
-      console.log(data)
+      
+      if(data[0].succes){
+        Alert.alert(data[0].succes)
+      }
+      if(data[0].error){
+        Alert.alert(data[0].error)
+      }
+      
     }
   
     render(){
@@ -87,17 +96,29 @@ class  Methods extends Component{
           <View>
             <Text style={{marginLeft:15,fontSize:22}}>MONEDA  :{moneda} </Text>
             <Text style={{marginLeft:15,fontSize:22}}>MONTO  : {this.state.montcambio}</Text>
-            <View style={{marginLeft:15,fontSize:22,flexDirection:'row'}}>
-              <Text>M. PAGO</Text>
-              <RNPickerSelect
-
-                        onValueChange={(value) => this.setState({tipo:value})}
-                        items={vals} doneText="Cerrar"
-                        placeholder={{ label: "Moneda", value: null,color:'blue' }}
-                        style={{marginLeft:20}}
-                    />
-            </View>
             
+              
+           
+              <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={vals}
+              search
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder="TIPO DE PAGO"
+              searchPlaceholder="Buscar..."
+              value={this.state.tipo}
+              onChange={item => {
+                this.setState({tipo:item.value});
+              }}
+              />
+             
+      
             <Text style={{marginLeft:15,fontSize:22}}>Obervaciones: </Text>
             <TextInput style={styles.obs}  multiline={true}  numberOfLines={6} value={this.state.obs} onChangeText={(text)=>this.setState({obs:text})} />
             <TouchableOpacity style={styles.button} onPress={()=>this.savedata()}>
@@ -139,6 +160,13 @@ const styles = StyleSheet.create({
         height:100,
         padding:5,
 
-      }
+      },
+      dropdown: {
+        height: 30,
+        borderColor: 'gray',
+        borderWidth: 0.5,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+      },
 
   })

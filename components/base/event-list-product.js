@@ -1,25 +1,20 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-import { StyleSheet, Text, TouchableOpacity, View,ToastAndroid } from "react-native";
+import { StyleSheet, Text, TouchableOpacity,Alert } from "react-native";
 import { Contex } from "../global/globalContex";
 
-function EventListProduct({id,codigo,nombre,precio}){
+function EventListProduct({id,codigo,nombre,precio,afecto}){
     const globalContex = useContext(Contex);
     const {cliente,icoMon} = globalContex;
     const navigation = useNavigation();
     const ValidateClient=()=>{
         if('codigo' in cliente){
-            navigation.navigate('Select',{data:{id,codigo,nombre,precio}})
+            navigation.navigate('Select',{data:{id,codigo,nombre,precio,afecto}})
             return true;
-            
-            
         }
-        ToastAndroid.show('Agregue un Cliente', ToastAndroid.SHORT);
+        Alert.alert('Agregue un Cliente');
        
-    }
-
-
-    
+    }    
     
     return (
         <TouchableOpacity style={styles.item} onPress={()=>{ValidateClient()}}>
@@ -28,7 +23,7 @@ function EventListProduct({id,codigo,nombre,precio}){
                 <Text>Codigo: {codigo}</Text>
                 <Text>Producto: {nombre}</Text>
                 <Text>Precio:{icoMon} {precio}</Text>
-                
+                <Text>Afecto:{afecto}</Text>
                 
            
         </TouchableOpacity>
