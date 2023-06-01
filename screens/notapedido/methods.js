@@ -1,7 +1,6 @@
 import {Component } from "react";
 import { View,Text, StyleSheet, Alert,TouchableOpacity, TextInput } from "react-native";
 import { Contex } from "../../components/global/globalContex";
-import RNPickerSelect from "react-native-picker-select";
 import { Dropdown } from 'react-native-element-dropdown';
 
 class  Methods extends Component{
@@ -24,13 +23,13 @@ class  Methods extends Component{
   }
     savedata(){
         
-        this.props.navigation.navigate('NotaPedido');
+        
         const {setProductos,setCliente} = this.context;
         setProductos([])
         setCliente({})
         this.registrarPedido()
+        this.props.navigation.navigate('NotaPedido');
       }
-    
     fetchTipoCambio = async () => {
       try {
         const fecha = new Date();
@@ -75,12 +74,7 @@ class  Methods extends Component{
       })
       const data = await response.json()
       
-      if(data[0].succes){
-        Alert.alert(data[0].succes)
-      }
-      if(data[0].error){
-        Alert.alert(data[0].error)
-      }
+      Alert.alert(data.message)
       
     }
   

@@ -23,7 +23,7 @@ export const Provider = ({children})=>{
     const [tipoPago,setTipoPago] = useState([])
     const [alm,setAlm] = useState('')
     const [local,setLocal] = useState('')
-    const [p,setP] = useState()
+    const [p,setP] = useState('')
     const globalContex = {
         dominio,setDominio,
         userLogged,setUserLogged,

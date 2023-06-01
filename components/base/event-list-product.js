@@ -23,7 +23,7 @@ function EventListProduct({id,codigo,nombre,precio,afecto}){
                 <Text>Codigo: {codigo}</Text>
                 <Text>Producto: {nombre}</Text>
                 <Text>Precio:{icoMon} {precio}</Text>
-                <Text>Afecto:{afecto}</Text>
+                {/* <Text>Afecto:{afecto}</Text> */}
                 
            
         </TouchableOpacity>

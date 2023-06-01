@@ -25,6 +25,7 @@ function ListProduct({data}){
         data={data}
         keyExtractor={item=>item.id}
         renderItem={renderItem}
+        style={{backgroundColor:'#e0ffff'}}
         />
     );
 }

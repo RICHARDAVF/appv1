@@ -12,18 +12,15 @@ function NotaPedido(){
     const {cliente,data,setData,dominio,almacenes,ubicacion,precios,cred,moneda,setMoneda,setIcoMon,alm,setAlm,local,setLocal,p,setP} = globalContex
     const [searchPro,setSearchPro] = useState('')
     const [datacopy,setDataCopy] = useState([])
-  
-  
-    
-      const vals = almacenes.map(item => ({
+      const almacen = almacenes.map(item => ({
         label: item.nombre,
         value: item.codigo
       }));
-      const vals1 = ubicacion.map(item => ({
+      const ubic = ubicacion.map(item => ({
         label: item.nombre,
         value: item.codigo
       }));
-      const vals2 = precios.map(item => ({
+      const pre = precios.map(item => ({
         label: item.nombre,
         value: item.codigo
       }));
@@ -61,7 +58,7 @@ function NotaPedido(){
                 <Text style={{fontSize:15,color:'#000'}}>{("nombre" in cliente)?cliente.nombre:''}</Text>
                 
             </View>
-            <View style={{marginBottom:5}}>
+            <View style={{marginBottom:5,backgroundColor:'#dfffff'}}>
                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                     <TextInput placeholder="Buscar Producto" value={searchPro.toUpperCase()} onChangeText={setSearchPro} style={{borderBottomWidth:1,marginLeft:5,width:'50%'}}/>
                     <TouchableOpacity onPress={()=>buscador(searchPro.toUpperCase())} style={{marginStart:0}} >
@@ -81,7 +78,7 @@ function NotaPedido(){
                             selectedTextStyle={styles.selectedTextStyle}
                             inputSearchStyle={styles.inputSearchStyle}
                             iconStyle={styles.iconStyle}
-                            data={vals}
+                            data={almacen}
                             search
                             maxHeight={300}
                             labelField="label"
@@ -89,8 +86,10 @@ function NotaPedido(){
                             placeholder="ALMACEN"
                             searchPlaceholder="Buscar..."
                             value={alm}
+                            
                             onChange={item => {
                                 setAlm(item.value);
+
                             }}
                             />
                     </View>
@@ -102,7 +101,7 @@ function NotaPedido(){
                         selectedTextStyle={styles.selectedTextStyle}
                         inputSearchStyle={styles.inputSearchStyle}
                         iconStyle={styles.iconStyle}
-                        data={vals1}
+                        data={ubic}
                         search
                         maxHeight={300}
                         labelField="label"
@@ -126,7 +125,7 @@ function NotaPedido(){
                         selectedTextStyle={styles.selectedTextStyle}
                         inputSearchStyle={styles.inputSearchStyle}
                         iconStyle={styles.iconStyle}
-                        data={vals2}
+                        data={pre}
                         search
                         maxHeight={300}
                         labelField="label"
@@ -177,23 +176,23 @@ function NotaPedido(){
 const styles = StyleSheet.create({
     panelClient:{
         width:"100%",
-        backgroundColor:'#e8f3ff',
-        borderWidth:1,
+        backgroundColor:'#dfffff',
+     
         padding:10,
-        height:'15%'
+        height:'12%'
         
 
     },
     panelItems:{
         width:'100%',
         height:'30%',
-        backgroundColor:'#e8f3ff',
+        backgroundColor:'#b2ffff',
         borderWidth:1,
     },
     panelProduct:{
         width:'100%',
         height:'60%',
-        backgroundColor:'#e8f3ff',
+        backgroundColor:'#b2ffff',
         borderWidth:1,
     },
     btn:{

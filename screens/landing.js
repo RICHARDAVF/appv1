@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Text,View ,TouchableOpacity,StyleSheet} from "react-native";
+import { Text,View ,TouchableOpacity,StatusBar} from "react-native";
 import { Contex } from "../components/global/globalContex";
 import styles from "../components/styles/style";
 
@@ -14,6 +14,7 @@ function Landing({navigation,route,props}){
                 <Text style={styles.txt}>Login</Text>
                 
             </TouchableOpacity>
+            <StatusBar barStyle="dark"/>
         </View>
     );
 }

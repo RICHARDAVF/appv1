@@ -2,7 +2,7 @@ import { DrawerItem, DrawerItemList, createDrawerNavigator } from '@react-naviga
 import { Image, Linking, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useContext } from 'react';
 import { Contex } from '../global/globalContex';
-import { HomeStack, PedidoStack } from './stack';
+import { EstadoPstack, HomeStack, PedidoStack } from './stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -70,11 +70,12 @@ function MyDrawer() {
      
       />
       
-    {/* <Drawer.Screen
+    <Drawer.Screen
     name='EstadoCotStack'
-    component={''}
-    options={{title:'Estado de Cotizacion',drawerIcon:()=><Icon name="toggle-on" size={22} color="black" />}}
+    component={EstadoPstack}
+    options={{title:'Estado de Pedido',drawerIcon:()=><Icon name="check-square-o" size={22} color="black" />}}
     />
+    {/*
     <Drawer.Screen
     name='EstadoPedidoStack'
     component={''}

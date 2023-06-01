@@ -6,7 +6,9 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignContent:'center',
-        alignItems:'center',},
+        alignItems:'center',
+        backgroundColor:'#f0f8ff'
+    },
     btnlogin:{
         width:'80%',
        backgroundColor:'cyan',

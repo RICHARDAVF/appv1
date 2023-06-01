@@ -7,7 +7,7 @@ import Query from "../data/querys";
 
 function Login({navigation,route,props}){
     const globalContex = useContext(Contex);
-    const {setIsLogin,setTipoCambio,dominio,setClientes,setAlmacenes,setUserLogged,setUbicacion,setPrecios,setCred,setTipoPago} = globalContex;
+    const {setIsLogin,setTipoCambio,dominio,setClientes,setAlmacenes,setUserLogged,setUbicacion,setPrecios,setCred,setTipoPago,setLocal,setAlm,setP} = globalContex;
     const [securePassword,setSecurePassword] = useState(true);
     const [ruc,setRuc] = useState('');
     const [usuario,setUsuario]=  useState('');
@@ -16,15 +16,18 @@ function Login({navigation,route,props}){
         try {
             const fecha = new Date();
             const mes = (fecha.getMonth()+1).toString().padStart(2,'0')
-            const fmt = `${fecha.getFullYear()}-${mes}-${fecha.getDate()}`
+            const fmt = `${fecha.getFullYear()}-${mes}-${fecha.getDate().toString().padStart(2,'0')}`
+            
             const response = await fetch(`https://api.apis.net.pe/v1/tipo-cambio-sunat?fecha=${fmt}`
             );
             const data = await response.json({});
+           
            setTipoCambio(data['venta'])
             
            
             
           } catch (error) {
+            Alert.alert(title='Error',message=error.message);
             ()=>{}
             
           }
@@ -52,13 +55,16 @@ function Login({navigation,route,props}){
     const requestbis = async (res)=>{
         const urlclient = `${dominio}/api/client/${res.creden.bdhost}/${res.creden.bdname}/${res.creden.bduser}/${res.creden.bdpassword}/`
         const resclient = await Query(urlclient)
-        if('error' in resclient){
+        if('message' in resclient){
             return Alert.alert(resclient.error);
         }
         setUserLogged(res.user)
         setAlmacenes(res.alms)
+        setAlm(res.alms[0].codigo)
         setUbicacion(res.ubicacion)
+        setLocal(res.ubicacion[0].codigo)
         setPrecios(res.precios)
+        setP(res.precios[0].codigo)
         setCred(res.creden)
         setTipoPago(res.tipo_pago)
         setClientes(resclient)
@@ -88,8 +94,8 @@ function Login({navigation,route,props}){
         try{
            
             const res = await apiRequest(dominio,ruc,usuario,password)
-            if ('error' in res){
-                return Alert.alert(res.error);
+            if ('message' in res){
+                return Alert.alert(res.message);
             }
             requestbis(res)
         

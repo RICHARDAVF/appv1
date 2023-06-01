@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ToastAndroid } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Contex } from "../components/global/globalContex";
 import { useNavigation } from "@react-navigation/native";
 
@@ -12,7 +12,6 @@ function Select({ route }) {
     const [price, setPrice] = useState((data.precio != null ? data.precio : 0.00).toString())
     const [cantidad, setCantidad] = useState('1')
     const [descuento, setDescuento] = useState('0.00')
-
 
     const valbuton = (price, cantidad) => {
         try {
@@ -36,7 +35,7 @@ function Select({ route }) {
 
             return (cantidad * precio * (1 - descuento / 100)).toFixed(2);
         } catch (error) {
-            ToastAndroid.show(error.message, ToastAndroid.SHORT);
+            Alert.alert(error.message)
             return '0.00';
         }
 
@@ -52,6 +51,7 @@ function Select({ route }) {
     }
     return (
         <View style={styles.home}>
+            
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
                 <Text style={styles.txt} >Codigo: </Text>
                 <Text style={[styles.txt, { borderBottomWidth: 1 }]} >{data.codigo}</Text>
@@ -81,6 +81,7 @@ function Select({ route }) {
             <TouchableOpacity style={[styles.btn, valbuton(price, cantidad) ? styles.enable : styles.disabled]} onPress={() => addDates()} >
                 <Text style={{ fontSize: 20 }}>Agregar</Text>
             </TouchableOpacity>
+            {/* <ToastContainer/> */}
         </View>
     );
 }

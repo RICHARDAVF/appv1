@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { TouchableOpacity ,Text,View, TextInput,StyleSheet} from "react-native";
+import { TouchableOpacity ,Text,View, TextInput,StyleSheet,Alert} from "react-native";
 import { Contex } from "../global/globalContex";
 import { useNavigation } from "@react-navigation/native";
 
@@ -13,13 +13,28 @@ function Modals({route}){
     const [cant,setCant] = useState((data.cantidad).toString());
     const [desc,setDesc] = useState((data.descuento).toString())
     const updateData=()=>{
-        const newData = [...productos];
-
-        const sum = (parseFloat(cant)*parseFloat(price)*(1-parseFloat(desc)/100)).toFixed(2);
+        Alert.alert(
+            'Confirmar',
+            '¿Esta seguro(a) de guardar los cambios?',
+            [
+              {
+                text: 'Cancelar',
+                style: 'cancel',
+              },
+              {
+                text: 'Aceptar',
+                onPress: () => {
+                const newData = [...productos];
+                const sum = (parseFloat(cant)*parseFloat(price)*(1-parseFloat(desc)/100)).toFixed(2);
+                newData[index] = {id:data.id,nombre:data.nombre,codigo:data.codigo,cantidad:cant,precio:price,descuento:desc,total:sum}
+                setProductos(newData)
+                navigation.navigate('Pedido')
+                },
+              },
+            ],
+            { cancelable: false }
+          );
         
-        newData[index] = {id:data.id,codigo:data.codigo,cantidad:cant,precio:price,descuento:desc,total:sum}
-        setProductos(newData)
-        navigation.navigate('Pedido')
         
         
     }

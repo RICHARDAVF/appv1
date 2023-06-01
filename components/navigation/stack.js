@@ -8,6 +8,7 @@ import { NotaPedidoTabs } from "./tabs";
 import Carrito from "../../screens/notapedido/carrito";
 import Modals from "../base/modal";
 import Methods from "../../screens/notapedido/methods";
+import StateP from "../../screens/estado-pedido/state";
 
 
 
@@ -35,4 +36,12 @@ export const PedidoStack = ()=>{
     </Stack.Navigator>
     );
 }
-
+export const EstadoPstack = ()=>{
+    const navigation = useNavigation();
+    return (
+        <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
+            <Stack.Screen name = 'EstadoP' component={StateP} options={{title:'Estado de Pedido'}}/>
+        </Stack.Navigator>
+        
+    );
+}
