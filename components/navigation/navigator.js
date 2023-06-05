@@ -8,7 +8,7 @@ import MyDrawer from './drawer';
 const Stack = createStackNavigator();
 function Navigator(props){
     const globalContex = useContext(Contex);
-    const {isLogin,setIsLogin} = globalContex;
+    const {isLogin} = globalContex;
     
     return (
         <Stack.Navigator initialRouteName='Landing'>

@@ -74,6 +74,7 @@ const Carrito = () => {
             <DataTable.Cell style={{ width: 100 }}>{icoMon}{value.precio}</DataTable.Cell>
             <DataTable.Cell style={{ width: 100 }}>{value.descuento}%</DataTable.Cell>
             <DataTable.Cell style={{ width: 100 }}>{icoMon}{value.total}</DataTable.Cell>
+            <DataTable.Cell style={{ width: 250 }}>{value.nombre}</DataTable.Cell>
             
         </DataTable.Row>
 
@@ -92,6 +93,7 @@ const Carrito = () => {
                                 <DataTable.Title style={{ width: 100 }}>PRECIO/U</DataTable.Title>
                                 <DataTable.Title style={{ width: 100 }}>DESC %</DataTable.Title>
                                 <DataTable.Title style={{ width: 100 }}>TOTAL {icoMon}</DataTable.Title>
+                                <DataTable.Title style={{ width: 250 }}>PRODUCTO</DataTable.Title>
                             </DataTable.Header>
 
                         </DataTable>
