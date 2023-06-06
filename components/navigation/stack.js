@@ -9,6 +9,7 @@ import Carrito from "../../screens/notapedido/carrito";
 import Modals from "../base/modal";
 import Methods from "../../screens/notapedido/methods";
 import StateP from "../../screens/estado-pedido/state";
+import Aprobacion from "../../screens/estado-pedido/aprobacion-pedido";
 
 
 
@@ -41,6 +42,15 @@ export const EstadoPstack = ()=>{
     return (
         <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
             <Stack.Screen name = 'EstadoP' component={StateP} options={{title:'Estado de Pedido'}}/>
+        </Stack.Navigator>
+        
+    );
+}
+export const AprobacionStack = ()=>{
+    const navigation = useNavigation();
+    return (
+        <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
+            <Stack.Screen name = 'Aprobacion' component={Aprobacion} options={{title:'Aprobacion de Pedido'}}/>
         </Stack.Navigator>
         
     );

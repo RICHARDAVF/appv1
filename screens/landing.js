@@ -14,7 +14,7 @@ function Landing({navigation,route,props}){
                 <Text style={styles.txt}>Login</Text>
                 
             </TouchableOpacity>
-            <StatusBar barStyle="dark"/>
+       
         </View>
     );
 }

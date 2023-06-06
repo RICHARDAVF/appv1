@@ -7,7 +7,8 @@ import Query from "../data/querys";
 
 function Login({navigation,route,props}){
     const globalContex = useContext(Contex);
-    const {setIsLogin,setTipoCambio,dominio,setClientes,setAlmacenes,setUserLogged,setUbicacion,setPrecios,setCred,setTipoPago,setLocal,setAlm,setP} = globalContex;
+    const {setIsLogin,setTipoCambio,dominio,setClientes,setAlmacenes,
+        setUserLogged,setUbicacion,setPrecios,setCred,setTipoPago,setLocal,setAlm,setP,setEstado} = globalContex;
     const [securePassword,setSecurePassword] = useState(true);
     const [ruc,setRuc] = useState('');
     const [usuario,setUsuario]=  useState('');
@@ -58,6 +59,9 @@ function Login({navigation,route,props}){
         if('message' in resclient){
             return Alert.alert(resclient.error);
         }
+        const url = `${dominio}/api/pedidos/${res.creden.bdhost}/${res.creden.bdname}/${res.creden.bduser}/${res.creden.bdpassword}/`
+        const data = await Query(url)
+        setEstado(data.states)
         setUserLogged(res.user)
         setAlmacenes(res.alms)
         setAlm(res.alms[0].codigo)
