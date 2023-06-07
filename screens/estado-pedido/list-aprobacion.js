@@ -9,18 +9,19 @@ class ListAprobacion extends Component{
         this.data= this.props.data
     }
     renderStatus({item}){
-      
-        return <EventAprobacion item={item}/>;
         
+        return <EventAprobacion item={item}/>;
         
     }
     render(){
-        return   (
-            <FlatList
+       
+        return (<FlatList
                 data={this.data}
                 keyExtractor={item=>item.id}
                 renderItem={this.renderStatus}
+                
                 style={{backgroundColor:'#e0ffff'}}
+                
                 />
         )
     }

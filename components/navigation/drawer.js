@@ -10,12 +10,13 @@ const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
   const globalContex = useContext(Contex)
-  const {setIsLogin,userLogged,setData,setProductos,setCliente} = globalContex;
+  const {setIsLogin,userLogged,setData,setProductos,setCliente,setAprobacion} = globalContex;
   const handleLogout = ()=>{
     setIsLogin(false)
     setData([])
     setProductos([])
     setCliente({})
+    setAprobacion([])
     AsyncStorage.removeItem('token')
   }
     return (
@@ -27,7 +28,7 @@ function MyDrawer() {
               <ScrollView>
               <View>
                 <Image style = {{resizeMode:'contain',width:'100%'}} source={require('../../assets/logo.png')} />
-                <Text style={{marginLeft:10}}>Vendedor: {userLogged[4]}</Text>
+                <Text style={{marginLeft:10}}>Vendedor: {userLogged.usuario}</Text>
                 <Text style={{marginLeft:10}}>Version: 1.17.05</Text>
 
               </View>

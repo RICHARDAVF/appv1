@@ -12,10 +12,10 @@ function ListClient({data}){
     
     return (
         <FlatList
-        data={data}
-        keyExtractor={item=>item.id}
-        renderItem={renderItem}
-        initialNumToRender={10}
+            data={data}
+            keyExtractor={item=>item.id}
+            renderItem={renderItem}
+            initialNumToRender={10}
         />
     );
 }
