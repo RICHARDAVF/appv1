@@ -1,55 +1,49 @@
-import React, { Component } from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity ,Text} from "react-native";
+import React, {useContext } from "react";
+import { View, StyleSheet, TextInput, TouchableOpacity ,Text,VirtualizedList} from "react-native";
 import { Contex } from "../../components/global/globalContex";
-import ListAprobacion from "./list-aprobacion";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Query from "../../data/querys";
-class Aprobacion extends Component {
-  static contextType = Contex
+function Aprobacion() {
+  const globalContex = useContext(Contex)
+  const {aprobacion} = globalContex
 
-  constructor(props) {
-    super(props);
-    this.navigation = props.navigation;
-   
-    this.state ={
-        status:[],
-        cliente:null,
-        dates:null
-   
-    }
-    
+ function buscador(cliente){
+    return
   }
-
-  componentDidMount(){
-    const {aprobacion} = this.context
-    this.setState({status:aprobacion.states})
-  }
-  buscador(cliente){
-    const {aprobacion} = this.context
-    const result = aprobacion.states.filter(item=>item.cliente.includes(cliente))
-    console.log(result)
-
-  }
-  render() {
-    
-    const {aprobacion} = this.context
-  
-   
+  function ListItem({item}){
+        
     return (
+        <TouchableOpacity style={{borderWidth:1}}>
+              <Text>{item.cliente}</Text>
+              <Text>{item.codigo_pedido}</Text>
+              <Text>{item.fecha}</Text>
+        </TouchableOpacity>
+    );
+    
+}  
+const getItemCount =()=>aprobacion.states.length
+const getItem=(data,index) =>data[index]
+  return (
       <View style={styles.container}>
         <View style={styles.search}>
-          <TextInput placeholder="Buscar Cliente" value={this.state.cliente} onChangeText={(text)=>this.setState({cliente:text})} style={{width:'80%',marginLeft:10}}/>
-          <TouchableOpacity style={{marginRight:10}} onPress={()=>this.buscador(this.state.cliente)}>
+          <TextInput placeholder="Buscar Cliente" />
+          <TouchableOpacity style={{marginRight:10}} onPress={()=>buscador('')}>
             <Icon name="search" size={30} color='blue'/>
           </TouchableOpacity>
           <TouchableOpacity style={{marginRight:15}} >
             <Icon name="download" size={30} color='blue'/>
           </TouchableOpacity>
         </View>
-        <ListAprobacion data={aprobacion.states}/>
+        <VirtualizedList
+                    data={aprobacion.states}
+                    getItem={getItem}
+                    getItemCount={getItemCount}
+                    renderItem={({item})=><ListItem item={item}/>}
+                    keyExtractor={(item, index) => String(index)}
+                    />
       </View>
     );
-  }
+  
 }
 
 export default Aprobacion;
