@@ -2,12 +2,12 @@
 import React, { Component, useContext } from "react";
 import { View,Text,TouchableOpacity, StyleSheet,Button } from "react-native";
 import { Contex } from "../../components/global/globalContex";
-function EventAprobacion ({item}){
-    
-   
+function EventAprobacion ({route}){
+    const  {item} = route.params
+    const globalContex = useContext(Contex)
+    const {dominio,cred,userLogged} = globalContex;
     async function aprobacion1(btn,codigo_pedido){
-        const globalContex = useContext(Contex)
-        const {dominio,cred,userLogged} = globalContex;
+        
         const url = `${dominio}/api/pedidos/state/././././`
         const response = await  fetch(url,{
             method:'POST',
@@ -24,18 +24,20 @@ function EventAprobacion ({item}){
         const res = await response.json()
         console.log(res)
     }     
-        return (<TouchableOpacity>
-                
-                    <Text>CLIENTE: {item.cliente}</Text>
-                    <Text>PEDIDO: {item.codigo_pedido}</Text>
-                    <Text>FECHA: {item.fecha}</Text>
-                    <Text>IGV: {item.igv}</Text>
-                    <Text>Total: {item.status1}</Text>
-                    <Text>Total: {item.status2}</Text>
-                    
-                
-                
-            </TouchableOpacity>
+        return (
+            <View style={{flex:1}}>
+                <Text>{item.cliente}</Text>
+                <Text>{item.status1}</Text>
+                <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+                    <TouchableOpacity style={styles.btns}>
+                        <Text>APROBACION 1</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btns}>
+                        <Text>APROBACION 2</Text>
+                    </TouchableOpacity>
+                </View>
+               
+            </View>
         );
                   
            
@@ -45,6 +47,7 @@ export default EventAprobacion;
 const styles= StyleSheet.create({
     btns:{
         borderWidth:1,
-        borderRadius:10
-    }
+        borderRadius:5
+    },
+    
 })
