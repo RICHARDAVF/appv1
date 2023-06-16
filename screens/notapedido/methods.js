@@ -41,7 +41,11 @@ class  Methods extends Component{
         this.setState({tipoCambio:data['venta']})
 
       } catch (error) {
-        ()=>{}
+        Alert.alert(
+          'Mensaje',
+            error.message,
+          
+        )
         
       }
      

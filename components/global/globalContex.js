@@ -2,7 +2,7 @@ import React,{useState,createContext} from "react";
 export const Contex = createContext()
 
 export const Provider = ({children})=>{
-    const [dominio,setDominio] = useState('http://192.168.0.104:8000')
+    const [dominio,setDominio] = useState('http://192.168.1.71:8000')
     const [userLogged,setUserLogged] = useState({});
     const [partialurl,setPartialurl] = useState('');
     const [isLogin,setIsLogin] = useState(false);

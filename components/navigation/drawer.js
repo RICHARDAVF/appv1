@@ -16,7 +16,6 @@ function MyDrawer() {
     setData([])
     setProductos([])
     setCliente({})
-    setAprobacion([])
     AsyncStorage.removeItem('token')
   }
     return (

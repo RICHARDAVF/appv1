@@ -1,50 +1,49 @@
-import React, { useContext } from "react";
-import { View, StyleSheet, TextInput, TouchableOpacity, Text, VirtualizedList } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { Contex } from "../../components/global/globalContex";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Query from "../../data/querys";
 import { useNavigation } from "@react-navigation/native";
+
+import ListDatos from "./list-aprobacion";
 function Aprobacion() {
   const navigation = useNavigation()
   const globalContex = useContext(Contex)
-  const { aprobacion } = globalContex
-
-  function buscador(cliente) {
-    return
+  const { aprobacion,cred,dominio,setAprobacion } = globalContex
+  const [palabra,setPalabra] = useState('')
+  useEffect(()=>{
+   
+  })
+  async function RefreshData(){
+    const response = await fetch(`${dominio}/api/pedidos/state/${cred.bdhost}/${cred.bdname}/${cred.bduser}/${cred.bdpassword}`)
+    const data = await response.json({})
+    data.states.sort((a,b)=>{
+      return new Date(b.fecha)-new Date(a.fecha)
+  })
+    setAprobacion(data.states)
   }
-  function ListItem({ item }) {
-
-    return (
-      <TouchableOpacity style={{ borderWidth: 1 }} onPress={()=>navigation.navigate('EventApro',{item:item})}>
-        <Text>CLIENTE: {item.cliente}</Text>
-        <Text>CODIGO: {item.codigo_pedido}</Text>
-        <Text>FECHA: {item.fecha}</Text>
-        <Text>{(item.status1==2)?'APROBADO':'PENDIENTE'}</Text>
-        <Text>{(item.status2==2)?'APROBADO':'PENDIENTE'}</Text>
-      </TouchableOpacity>
-    );
-
+  function buscador(palabra) {
+    
+    const result = aprobacion.filter(item=>item.cliente.includes(palabra.toUpperCase()));
+        setAprobacion(result)
   }
-  const getItemCount = () => aprobacion.states.length
-  const getItem = (data, index) => data[index]
+
+
   return (
     <View style={styles.container}>
       <View style={styles.search}>
-        <TextInput placeholder="Buscar Cliente" />
-        <TouchableOpacity style={{ marginRight: 10 }} onPress={() => buscador('')}>
+        <TextInput value={palabra} onChangeText={setPalabra} placeholder="Buscar Cliente" style={{width:'70%',paddingLeft:10}}/>
+        <TouchableOpacity style={{ marginRight: 10 }} onPress={() => buscador(palabra)}>
           <Icon name="search" size={30} color='blue' />
         </TouchableOpacity>
-        <TouchableOpacity style={{ marginRight: 15 }} >
-          <Icon name="download" size={30} color='blue' />
+        <TouchableOpacity style={{ marginRight: 15 }} onPress={()=>RefreshData()} >
+          <Icon name="refresh" size={30} color='green' />
         </TouchableOpacity>
       </View>
-      <VirtualizedList
-        data={aprobacion.states}
-        getItem={getItem}
-        getItemCount={getItemCount}
-        renderItem={({ item }) => <ListItem item={item} />}
-        keyExtractor={(item, index) => String(index)}
-      />
+        <View>
+          <ListDatos componentes={aprobacion} navigation={navigation}/>
+        </View>
+       
     </View>
   );
 
@@ -59,5 +58,9 @@ const styles = StyleSheet.create({
   search: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  txt:{
+    color:'black',
+    fontWeight:'bold'
   }
 });

@@ -5,6 +5,7 @@ import styles from "../components/styles/style";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Query from "../data/querys";
 
+
 function Login({navigation,route,props}){
     const globalContex = useContext(Contex);
     const {setIsLogin,setTipoCambio,dominio,setClientes,setAlmacenes,
@@ -18,11 +19,9 @@ function Login({navigation,route,props}){
             const fecha = new Date();
             const mes = (fecha.getMonth()+1).toString().padStart(2,'0')
             const fmt = `${fecha.getFullYear()}-${mes}-${fecha.getDate().toString().padStart(2,'0')}`
-            
-            const response = await fetch(`https://api.apis.net.pe/v1/tipo-cambio-sunat?fecha=${fmt}`
-            );
+            const response = await fetch(`https://api.apis.net.pe/v1/tipo-cambio-sunat?fecha=${fmt}`);
             const data = await response.json({});
-           
+            
            setTipoCambio(data['venta'])
             
            
@@ -38,20 +37,26 @@ function Login({navigation,route,props}){
         checkTipoCambio();
     },[])
     async function apiRequest(dominio,ruc,usuario,password){
+        
+       
         try{
         const response =  await fetch(`${dominio}/api/login/${ruc}/${usuario}/${password}/`,{
             method:'GET',
         });
+       
+    
+   
+        const data = await response.json({})
+        return data
       
-        const data = await response.json()
         
-        return data;
     }catch(error){
-        return ;
+        return Alert.alert(error.message)
+        
     }
     
     }
-
+    
 
     const requestbis = async (res)=>{
         const urlclient = `${dominio}/api/client/${res.creden.bdhost}/${res.creden.bdname}/${res.creden.bduser}/${res.creden.bdpassword}/`
@@ -63,8 +68,7 @@ function Login({navigation,route,props}){
         const data = await Query(url)
         setEstado(data.states)
         const state = await Query(`${dominio}/api/pedidos/state/${res.creden.bdhost}/${res.creden.bdname}/${res.creden.bduser}/${res.creden.bdpassword}/`)
-        setAprobacion(state)
-       
+        setAprobacion(state.states)
         setUserLogged(res.user)
         setAlmacenes(res.alms)
         setAlm(res.alms[0].codigo)
@@ -83,7 +87,7 @@ function Login({navigation,route,props}){
             if(value!=null){
                 const {user,ruc,password} = JSON.parse(value);
                 const res = await apiRequest(dominio,ruc,user,password)
-              
+               
                 if (res.creden.status == false){
                     return Alert.alert('Tiene una deuda pendiente');
                 }
@@ -101,11 +105,15 @@ function Login({navigation,route,props}){
         try{
            
             const res = await apiRequest(dominio,ruc,usuario,password)
+            
             if ('message' in res){
                 return Alert.alert(res.message);
             }
+            if(res.creden.status==false){
+                setIsLogin(false)
+                return Alert.alert('Tiene una deuda pendiente');
+            }
             requestbis(res)
-        
             const dataAsync = {
                 user: usuario,
                 ruc: res.creden.ruc,

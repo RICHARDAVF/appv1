@@ -8,6 +8,7 @@ const Carrito = () => {
     const navigation = useNavigation();
     const globalContex = useContext(Contex);
     const { productos, setProductos, icoMon } = globalContex;
+
     function eliminar(index) {
         Alert.alert(
             'Confirmar',

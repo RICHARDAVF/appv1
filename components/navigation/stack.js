@@ -10,6 +10,8 @@ import Modals from "../base/modal";
 import Methods from "../../screens/notapedido/methods";
 import StateP from "../../screens/estado-pedido/state";
 import Aprobacion from "../../screens/estado-pedido/aprobacion-pedido";
+
+import EditarPedido from "../../screens/estado-pedido/editar-pedido";
 import EventAprobacion from "../../screens/estado-pedido/event-aprobacion";
 
 
@@ -43,6 +45,7 @@ export const EstadoPstack = ()=>{
     return (
         <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
             <Stack.Screen name = 'EstadoP' component={StateP} options={{title:'Estado de Pedido'}}/>
+            <Stack.Screen name='EditarPedido' component={EditarPedido} options={{title:'Edicion de Pedido'}}/>
         </Stack.Navigator>
         
     );
