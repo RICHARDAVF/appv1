@@ -39,7 +39,7 @@ function NotaPedido(){
     
     const simbolMoneda = (itemValue)=>{
         setMoneda(itemValue)
-        if(itemValue=='USD'){
+        if(itemValue=='D'){
             setIcoMon('$')
         }else{
             setIcoMon('s/')
@@ -147,8 +147,8 @@ function NotaPedido(){
                         inputSearchStyle={styles.inputSearchStyle}
                         iconStyle={styles.iconStyle}
                         data={[
-                            {label:'USD',value:'USD'},
-                            {label:'PEN',value:'PEN'},
+                            {label:'USD',value:'D'},
+                            {label:'PEN',value:'S'},
                         ]}
                         search
                         maxHeight={300}
