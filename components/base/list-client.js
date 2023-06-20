@@ -5,7 +5,6 @@ import EventListClient from "./event-list-client";
 function ListClient({data}){
  
     const renderItem  = ({item})=>{
-        
         return <EventListClient item = {item}/>
         
     }

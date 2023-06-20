@@ -8,16 +8,19 @@ function EditarPedido({route}){
     const {item} = route.params;
     const navigation = useNavigation()
     const globalContex = useContext(Contex)
-    const {dominio,cred,setProductos,setAlm,setLocal,setCliente} = globalContex
+    const {dominio,cred,setProductos,setAlm,setLocal,setCliente,setDatosEdit,setEditPedido,setTipoP} = globalContex
     async function EditItem(item){
+        
         const url = `${dominio}/api/pedidos/edit/${cred.bdhost}/${cred.bdname}/${cred.bduser}/${cred.bdpassword}/${item}/`
         const res = await fetch(url,{method:'GET'})
         const data = await res.json({})
-        console.log(data)
+        setEditPedido(false)
         setProductos(data.message.articulos)
         setAlm(data.message.cabepedido.almacen)
         setLocal(data.message.cabepedido.local)
-        setCliente({"nombre":data.message.cabepedido.cliente,"codigo":data.message.cabepedido.codigo_cliente})
+        setTipoP(data.message.cabepedido.tipo_pago)
+        setDatosEdit(data.message)
+        setCliente({"nombre":data.message.cabepedido.cliente,"codigo":data.message.cabepedido.codigo_cliente,"ruc":data.message.cabepedido.ruc,"direccion":data.message.cabepedido.direccion})
         navigation.navigate('PedidoStack')
         
     }

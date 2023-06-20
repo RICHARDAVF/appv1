@@ -27,11 +27,12 @@ function NotaPedido(){
       
     function buscador(palabra){
         
-        const dataresult = datacopy.filter(item => item.nombre.includes(palabra));
+        const dataresult = datacopy.filter(item => item.nombre.includes(palabra.toUpperCase()));
+        
         setData(dataresult)       
     }
-    const fetchData= async (p)=>{
-        const urlproduct = `${dominio}/api/product/${cred.bdhost}/${cred.bdname}/${cred.bduser}/${cred.bdpassword}/${p}/`
+    const fetchData= async (p,moneda)=>{
+        const urlproduct = `${dominio}/api/product/${cred.bdhost}/${cred.bdname}/${cred.bduser}/${cred.bdpassword}/${p}/${moneda}/`
         const resproduct = await Query(urlproduct)
         setData(resproduct)
         setDataCopy(resproduct)
@@ -60,11 +61,11 @@ function NotaPedido(){
             </View>
             <View style={{marginBottom:5,backgroundColor:'#dfffff'}}>
                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                    <TextInput placeholder="Buscar Producto" value={searchPro.toUpperCase()} onChangeText={setSearchPro} style={{borderBottomWidth:1,marginLeft:5,width:'50%'}}/>
-                    <TouchableOpacity onPress={()=>buscador(searchPro.toUpperCase())} style={{marginStart:0}} >
+                    <TextInput placeholder="Buscar Producto" value={searchPro} onChangeText={setSearchPro} style={{borderBottomWidth:1,marginLeft:5,width:'50%'}}/>
+                    <TouchableOpacity onPress={()=>buscador(searchPro)} style={{marginStart:0}} >
                         <Icon name="search" size={22} color="#000" style={{marginTop:30,marginRight:20}} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.btn,{marginTop:10}]} onPress={()=>fetchData(p)}>
+                    <TouchableOpacity style={[styles.btn,{marginTop:10}]} onPress={()=>fetchData(p,moneda)}>
                         <Text style={{fontSize:20}}>Cargar <Icon name="download" size={22} color="blue" /></Text>
                     </TouchableOpacity>
                 </View>

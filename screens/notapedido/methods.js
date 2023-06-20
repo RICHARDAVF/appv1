@@ -17,13 +17,14 @@ class  Methods extends Component{
       cambio :null,
       status:false, 
       tipo : null, 
-      obs:''   
+      obs:''  , 
     }
-    
+  }
+  componentDidMount(){
+    const {tipoP} = this.context
+    this.setState({tipo:tipoP})
   }
     savedata(){
-        
-        
         const {setProductos,setCliente} = this.context;
         setProductos([])
         setCliente({})
@@ -43,45 +44,66 @@ class  Methods extends Component{
       } catch (error) {
         Alert.alert(
           'Mensaje',
-            error.message,
-          
-        )
-        
+            error.message, 
+        ) 
       }
-     
     };
-    
-
     async registrarPedido(){
-      const {dominio,productos,cliente,local,alm,cred,userLogged,p} = this.context;
-      
-      const response = await fetch(`${dominio}/api/product/venta/add/`,{
-        method:'POST',
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
+      const {dominio,productos,cliente,local,alm,cred,userLogged,p,editPedido,setEditPedido,datosEdit} = this.context;
+      var response = ''
+      if(editPedido){
+         response = await fetch(`${dominio}/api/product/venta/add/`,{
+          method:'POST',
+          headers:{
+            "Content-Type":"application/json"
+          },
+  
+          body:JSON.stringify({
+            "detalle":productos,
+            "cabeceras":cliente,
+            "vendedor":userLogged,
+            "opt":{
+              "tipo":this.state.tipo,
+              'obs' :this.state.obs,
+              "total":this.t,
+              "local":local,
+              "almacen":alm,
+              "credencial":cred,
+              'precio':p
+            }
+          })
+        })
+      }else{
+        const url = `${dominio}/api/pedidos/edit/x/x/x/x/x/`
+       
+        datos = {
+          "credencial":cred,
           "detalle":productos,
           "cabeceras":cliente,
-          "vendedor":userLogged,
-          "opt":{
-            "tipo":this.state.tipo,
-            'obs' :this.state.obs,
-            "total":this.t,
-            "local":local,
-            "almacen":alm,
-            "credencial":cred,
-            'precio':p
-          }
-
-        })
-      })
+          "local":datosEdit.cabepedido.local,
+          "almacen":datosEdit.cabepedido.almacen,
+          "precio":datosEdit.cabepedido.lista_precio,
+          "codigo_usuario":datosEdit.cabepedido.codigo_usuario,
+          "codigo_pedido":datosEdit.cabepedido.codigo_pedido,
+          "fecha":datosEdit.cabepedido.fecha,
+          "fecha_usuario":datosEdit.cabepedido.fecha_usuario,
+          "gui_inclu":datosEdit.cabepedido.gui_inclu,
+          "total":this.t,
+          "tipo":this.state.tipo,
+          "obs":this.state.obs
+        }
+         response = await fetch(url,{
+          method:'POST',
+          headers:{
+            "Content-Type":"Application/json"
+          },
+          body:JSON.stringify(datos)
+         })
+        setEditPedido(true)
+      }
       const data = await response.json()
-      
-      Alert.alert(data.message)
-      
+      Alert.alert(data.message) 
     }
-  
     render(){
       const {moneda,tipoPago} = this.context;
       const vals = tipoPago.map((item) => ({

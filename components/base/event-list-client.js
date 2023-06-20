@@ -15,9 +15,9 @@ function EventListClient({item}){
 
     return (
         <TouchableOpacity style={styles.item} onPress={()=>handleSelectCLient()}>
-              <Text>Cliente: {item.nombre}</Text>
-                <Text>RUC: {item.ruc}</Text>
-                <Text>Codigo: {item.codigo}</Text>
+            <Text>Cliente: {item.nombre}</Text>
+            <Text>RUC: {item.ruc}</Text>
+            <Text>Codigo: {item.codigo}</Text>
         </TouchableOpacity>
     );
     }

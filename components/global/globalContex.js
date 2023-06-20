@@ -25,6 +25,9 @@ export const Provider = ({children})=>{
     const [p,setP] = useState('')
     const [estado,setEstado] = useState([])
     const [aprobacion,setAprobacion] = useState([])
+    const [editPedido,setEditPedido] = useState(true)
+    const [datosEdit,setDatosEdit] = useState({})
+    const [tipoP,setTipoP] = useState('')
     const globalContex = {
         dominio,setDominio,
         userLogged,setUserLogged,
@@ -49,6 +52,9 @@ export const Provider = ({children})=>{
         p,setP,
         estado,setEstado,
         aprobacion,setAprobacion,
+        editPedido,setEditPedido,
+        datosEdit,setDatosEdit,
+        tipoP,setTipoP
     }
     return <Contex.Provider value={globalContex}>{children}</Contex.Provider>
 };

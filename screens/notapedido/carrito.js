@@ -29,11 +29,7 @@ const Carrito = () => {
             ],
             { cancelable: false }
           );
-        
-
     }
-
-
     function sumar() {
         var t = 0;
         for (item in productos) {
