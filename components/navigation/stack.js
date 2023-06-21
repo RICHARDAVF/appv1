@@ -10,9 +10,9 @@ import Modals from "../base/modal";
 import Methods from "../../screens/notapedido/methods";
 import StateP from "../../screens/estado-pedido/state";
 import Aprobacion from "../../screens/estado-pedido/aprobacion-pedido";
-
 import EditarPedido from "../../screens/estado-pedido/editar-pedido";
 import EventAprobacion from "../../screens/estado-pedido/event-aprobacion";
+import ListCuentas from "../../screens/cuentas-cobrar/cuentas";
 
 
 
@@ -52,11 +52,21 @@ export const EstadoPstack = ()=>{
 }
 export const AprobacionStack = ()=>{
     const navigation = useNavigation();
+    
+ 
     return (
-        <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
+        <Stack.Navigator  screenOptions={()=>navOptions(navigation)}>
             <Stack.Screen name = 'Aprobacion' component={Aprobacion} options={{title:'Aprobacion de Pedido'}}/>
             <Stack.Screen name = 'EventApro' component={EventAprobacion} options={{title:'Aprobar'}}/>
         </Stack.Navigator>
         
     );
+}
+export const CuentaStack = ()=>{
+    const navigation = useNavigation()
+    return (
+        <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
+            <Stack.Screen name="Cuentas" component={ListCuentas} options={{title:"Cuentas Por Cobrar"}}/>
+        </Stack.Navigator>
+    )
 }

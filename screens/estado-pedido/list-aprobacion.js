@@ -19,7 +19,6 @@ class ListDatos extends PureComponent {
           <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:3}}>
               <View>
                   <Text style={styles.txt}>CODIGO: </Text>
-               
                   <Text style={styles.txt}>SUB TOTAL: </Text>
                   <Text style={styles.txt}>IGV: </Text>
                   <Text style={styles.txt}>TOTAL: </Text>

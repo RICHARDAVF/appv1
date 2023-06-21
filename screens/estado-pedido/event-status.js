@@ -25,7 +25,8 @@ class ListaComponentes extends PureComponent {
        </TouchableOpacity>
       );
     };
-  
+
+    
     getItemCount = () => {
       const { componentes } = this.props;
       return componentes.length;

@@ -25,7 +25,8 @@ function Aprobacion() {
   function buscador(palabra) {
     
     const result = aprobacion.filter(item=>item.cliente.includes(palabra.toUpperCase()));
-        setAprobacion(result)
+   
+    setAprobacion(result)
   }
 
 

@@ -17,7 +17,7 @@ export const Provider = ({children})=>{
     const [precios,setPrecios] = useState([])
     const [cred,setCred] = useState([])
     const [tipoCambio,setTipoCambio] = useState('')
-    const [moneda,setMoneda] = useState('PEN')
+    const [moneda,setMoneda] = useState('S')
     const [icoMon,setIcoMon] = useState('s/')
     const [tipoPago,setTipoPago] = useState([])
     const [alm,setAlm] = useState('')

@@ -11,7 +11,7 @@ function ListProduct({data}){
     }
     const renderItem  = ({item})=>{
         // if (moneda=='D'){
-        return <EventItemList id = {item.id} codigo = {item.codigo} nombre = {item.nombre} precio={(item.precio/tipoCambio).toFixed(2)} afecto={item.afecto}/>
+        return <EventItemList id = {item.id} codigo = {item.codigo} nombre = {item.nombre} precio={item.precio} afecto={item.afecto}/>
         // }else{
         //     return <EventItemList id = {item.id} codigo = {item.codigo} nombre = {item.nombre} precio={item.precio} afecto={item.afecto}/>
         // }   

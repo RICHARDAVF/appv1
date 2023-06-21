@@ -11,7 +11,7 @@ function NotaPedido(){
     const globalContex = useContext(Contex)
     const {cliente,data,setData,dominio,almacenes,ubicacion,precios,cred,moneda,setMoneda,setIcoMon,alm,setAlm,local,setLocal,p,setP} = globalContex
     const [searchPro,setSearchPro] = useState('')
-    const [datacopy,setDataCopy] = useState([])
+    
       const almacen = almacenes.map(item => ({
         label: item.nombre,
         value: item.codigo
@@ -26,18 +26,16 @@ function NotaPedido(){
       }));
       
     function buscador(palabra){
-        
-        const dataresult = datacopy.filter(item => item.nombre.includes(palabra.toUpperCase()));
-        
+        const newData = [...data]
+        const dataresult = newData.filter(item => item.nombre.includes(palabra.toUpperCase()));
+        console.log(dataresult)
         setData(dataresult)       
     }
-    const fetchData= async (p,moneda)=>{
-        const urlproduct = `${dominio}/api/product/${cred.bdhost}/${cred.bdname}/${cred.bduser}/${cred.bdpassword}/${p}/${moneda}/`
+    const fetchData= async (p,moneda,alm,local)=>{
+        const urlproduct = `${dominio}/api/product/${cred.bdhost}/${cred.bdname}/${cred.bduser}/${cred.bdpassword}/${p}/${moneda}/${alm}/${local}`
         const resproduct = await Query(urlproduct)
-        setData(resproduct)
-        setDataCopy(resproduct)
+        setData(resproduct)  
     }
-    
     const simbolMoneda = (itemValue)=>{
         setMoneda(itemValue)
         if(itemValue=='D'){
@@ -65,7 +63,7 @@ function NotaPedido(){
                     <TouchableOpacity onPress={()=>buscador(searchPro)} style={{marginStart:0}} >
                         <Icon name="search" size={22} color="#000" style={{marginTop:30,marginRight:20}} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.btn,{marginTop:10}]} onPress={()=>fetchData(p,moneda)}>
+                    <TouchableOpacity style={[styles.btn,{marginTop:10}]} onPress={()=>fetchData(p,moneda,alm,local)}>
                         <Text style={{fontSize:20}}>Cargar <Icon name="download" size={22} color="blue" /></Text>
                     </TouchableOpacity>
                 </View>
