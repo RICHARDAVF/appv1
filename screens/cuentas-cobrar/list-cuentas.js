@@ -1,18 +1,16 @@
 import { Component } from "react";
-import { View,VirtualizedList,Text } from "react-native";
+import { View,VirtualizedList,Text,ActivityIndicator, StyleSheet,TouchableOpacity } from "react-native";
 class ListCuentas extends Component{
     state={
-        data:null
+        isLoading: true,
+        nav:null
     }
-    componentDidMount(){
-        const {data} = this.props
-        
-        this.setState({data:data})
-    }
-    buscador(palabra){
-        
-        const result = data.filter(item=>item.id.includes(palabra));
-        console.log(result)
+    componentDidMount() {
+      const {nav} = this.props
+      this.setState({nav:nav})
+        setTimeout(() => {
+          this.setState({ isLoading: false }); 
+        }, 3000); 
       }
     getItemCount = () => {
         const { data } = this.props;
@@ -26,15 +24,54 @@ class ListCuentas extends Component{
       keyExtractor = (item) => {
         return item.id.toString();
       };
-      renderItem({item}){
+      renderItem=({item})=>{
+        
         return(
-            <View>
-                <Text>{item.id}</Text>
-            </View>
-        )
+                <TouchableOpacity style={{borderWidth:1}} onPress={()=>this.state.nav.navigate('SelectCuenta',{codigo:item.codigo,filtro:item.filtro})} >
+                    <Text style={styles.txtsub}>CLIENTE: {item.razon_social}</Text>
+                    <Text style={styles.txtsub}>CODIGO: {item.codigo}</Text>
+                    <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:3}}>
+                        <View>
+                           
+                            <Text style={styles.txtsub}>Facturas:</Text>
+                            <Text style={styles.txtsub}>Letra:</Text>
+                            <Text style={styles.txtsub}>Total:</Text>
+                        </View>
+                        <View>
+                            <Text>s/ {item.monto_soles}</Text>
+                            <Text>s/ {item.letra_soles}</Text>
+                            <Text>s/ {item.total_soles}</Text>
+                        </View>
+                        <View>
+                            <Text style={styles.txtsub}>Facturas:</Text>
+                            <Text style={styles.txtsub}>Letra:</Text>
+                            <Text style={styles.txtsub}>Total:</Text>
+                        </View>
+                        <View>
+                            <Text>US$ {item.monto_dolares}</Text>
+                            <Text>US$ {item.letra_dolares}</Text>
+                            <Text>US$ {item.total_dolares}</Text>
+                        </View>
+                    </View>
+                    
+                    
+                    
+                </TouchableOpacity>
+                
+            )
       }
     render(){
         const {data} = this.props;
+       
+        const {isLoading} = this.state
+        if (isLoading) {
+       
+            return (
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" color="#0000ff" />
+              </View>
+            );
+          }
         return (
             <VirtualizedList
             data={data}
@@ -48,3 +85,8 @@ class ListCuentas extends Component{
 }
 
 export default  ListCuentas;
+const styles = StyleSheet.create({
+    txtsub:{
+        fontWeight:'bold'
+    }
+})

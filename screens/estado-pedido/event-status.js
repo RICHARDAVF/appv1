@@ -13,7 +13,7 @@ class ListaComponentes extends PureComponent {
       this.setState({ isLoading: false }); 
     }, 3000); 
   } 
-    renderItem = ({ item }) => {
+  renderItem = ({ item }) => {
         const {navigation} = this.props
       return (
         <TouchableOpacity style={{borderWidth:1}} onPress={()=>navigation.navigate('EditarPedido',{item:item})}>

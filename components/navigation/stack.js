@@ -13,6 +13,7 @@ import Aprobacion from "../../screens/estado-pedido/aprobacion-pedido";
 import EditarPedido from "../../screens/estado-pedido/editar-pedido";
 import EventAprobacion from "../../screens/estado-pedido/event-aprobacion";
 import ListCuentas from "../../screens/cuentas-cobrar/cuentas";
+import SelectCuenta from "../../screens/cuentas-cobrar/select-cuenta";
 
 
 
@@ -67,6 +68,7 @@ export const CuentaStack = ()=>{
     return (
         <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
             <Stack.Screen name="Cuentas" component={ListCuentas} options={{title:"Cuentas Por Cobrar"}}/>
+            <Stack.Screen name="SelectCuenta" component={SelectCuenta} options={{title:"Detalles"}}/>
         </Stack.Navigator>
     )
 }

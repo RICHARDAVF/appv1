@@ -40,15 +40,17 @@ function Login({navigation,route,props}){
         
        
         try{
-        const response =  await fetch(`${dominio}/api/login/${ruc}/${usuario}/${password}/`,{
-            method:'GET',
-        });
-       
-    
-   
-        const data = await response.json({})
-        return data
-      
+            if(ruc.length==0 || usuario.length==0 || password.length==0){
+                return 0;
+            }
+            const response =  await fetch(`${dominio}/api/login/${ruc}/${usuario}/${password}/`,{
+                method:'GET',
+            });
+            const data = await response.json({})
+            return data
+              
+            
+        
         
     }catch(error){
         return Alert.alert(error.message)

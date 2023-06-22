@@ -2,50 +2,66 @@ import { Component } from "react";
 import { View,Text ,StyleSheet, TextInput, TouchableOpacity} from "react-native";
 import { Contex } from "../../components/global/globalContex";
 import  Icon  from "react-native-vector-icons/FontAwesome";
-import { Checkbox } from "react-native-paper";
 import ListCuentas from "./list-cuentas";
-
+import CheckBox from '@react-native-community/checkbox';
+import { withNavigation } from "@react-navigation/compat";
 class Cuentas extends Component{
     static contextType= Contex
     state = {
-    ontogle:false    
+        oncheck:false,
+        data:[],
+        palabra:null    
     }
-    componentDidMount() {
-        const {dominio} = this.context
+    componentDidMount(){
+        this.requestData()
         
     }
+    buscador(palabra){
+        const result = this.state.data.filter(item=>item.razon_social.includes(palabra.toUpperCase()))
+        this.setState({data:result})
+    }
+    async requestData(){
+        const {dominio,cred} = this.context
+        const url = `${dominio}/api/cuentas/${cred.bdhost}/${cred.bdname}/${cred.bduser}/${cred.bdpassword}/${(this.state.oncheck)?1:0}`
+        const response = await fetch(url,{
+            method:'GET',
+        })
+        const data = await response.json({})
+        this.setState({data:data.message})
+    }
     render(){   
-        const data = [
-            {"id":1,"value":'r'},
-            {"id":2,"value":'d'},
-            {"id":3,"value":'f'},
-            {"id":4,"value":'m'},
-            {"id":5,"value":'y'},
-            {"id":6,"value":'b'},
-        ]
+        const {data} = this.state
+        const {navigation} = this.props
         return( 
         <View style={styles.main}>
             <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',alignContent:'space-around',paddingHorizontal:6,marginTop:10}}>
-                <TextInput style={{borderBottomWidth:0.5,width:'60%'}}/>
-               
-                <TouchableOpacity>
+                <TextInput value={this.state.palabra} onChangeText={(text)=>this.setState({palabra:text})} style={{borderBottomWidth:0.5,width:'60%'}}/>
+                <TouchableOpacity onPress={()=>this.buscador(this.state.palabra)}>
                     <Icon name='search' size={22} color='gray'/>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.requestData()}>
                     <Icon name="download" size={22} color='blue'/>
                 </TouchableOpacity>
             </View>
-            <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between',alignContent:'space-around',paddingHorizontal:6,marginTop:10}}>
-               <Checkbox.Item status={this.state.ontogle ? 'checked' : 'unchecked'}
-                   label="Documentos Cancelados"
-                    onPress={() => this.setState({ontogle:!this.state.ontogle})}  />
+            <View style={{paddingHorizontal:6,margin:10,flexDirection:'row',alignItems:'center',justifyContent:'flex-start'}}>
+                <Text style={{marginEnd:5}}>
+                   <Icon name="check" size={15}/> Documentos Cancelados</Text>
+                <CheckBox
+                        disabled={false}
+                        value={this.oncheck}
+                        onValueChange={(newValue) => this.setState({oncheck:newValue})}
+                        boxType="square"
+                        size={10}
+                        animationDuration={0.1}
+                        
+                       
+                    />
             </View>
-            
-            <ListCuentas data={data}/>
+            <ListCuentas data={data} nav={navigation} />
         </View>);
     }
 }
-export default Cuentas;
+export default withNavigation(Cuentas);
 const styles = StyleSheet.create({
     main:{
         flex:1

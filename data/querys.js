@@ -10,8 +10,8 @@ export default async function Query(url){
         
         return data;
     }catch(error){
-        console.log(error.message)
-        Alert.alert(error.message)
-        return 0;
+        
+        return Alert.alert(error.message)
+       
     }
 }
