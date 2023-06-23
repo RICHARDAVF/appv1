@@ -27,7 +27,7 @@ class ListCuentas extends Component{
       renderItem=({item})=>{
         
         return(
-                <TouchableOpacity style={{borderWidth:1}} onPress={()=>this.state.nav.navigate('SelectCuenta',{codigo:item.codigo,filtro:item.filtro})} >
+                <TouchableOpacity style={{borderWidth:1,borderRadius:5}} onPress={()=>this.state.nav.navigate('SelectCuenta',{codigo:item.codigo,filtro:item.filtro,cliente:item.razon_social})} >
                     <Text style={styles.txtsub}>CLIENTE: {item.razon_social}</Text>
                     <Text style={styles.txtsub}>CODIGO: {item.codigo}</Text>
                     <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:3}}>

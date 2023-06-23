@@ -14,9 +14,8 @@ import EditarPedido from "../../screens/estado-pedido/editar-pedido";
 import EventAprobacion from "../../screens/estado-pedido/event-aprobacion";
 import ListCuentas from "../../screens/cuentas-cobrar/cuentas";
 import SelectCuenta from "../../screens/cuentas-cobrar/select-cuenta";
-
-
-
+import ItemDetalleDoc from "../../screens/cuentas-cobrar/detalle-items";
+import MyComponent from "../../screens/orden-reque/orden";
 
 const Stack = createStackNavigator()
 export const HomeStack =()=>{
@@ -69,6 +68,16 @@ export const CuentaStack = ()=>{
         <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
             <Stack.Screen name="Cuentas" component={ListCuentas} options={{title:"Cuentas Por Cobrar"}}/>
             <Stack.Screen name="SelectCuenta" component={SelectCuenta} options={{title:"Detalles"}}/>
+            <Stack.Screen name="DocumDetalle" component={ItemDetalleDoc} options={{title:"Detalle del Documento"}}/>
+        </Stack.Navigator>
+    )
+}
+export const OrderRequeStack =()=>{
+    const navigation = useNavigation()
+    return(
+        <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
+            <Stack.Screen name="Orden" component={MyComponent} options={{title:'orden'}}/>
+
         </Stack.Navigator>
     )
 }

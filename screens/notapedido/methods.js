@@ -29,7 +29,7 @@ class  Methods extends Component{
         setProductos([])
         setCliente({})
         this.registrarPedido()
-        this.props.navigation.navigate('NotaPedido');
+       
       }
     fetchTipoCambio = async () => {
       try {
@@ -102,7 +102,16 @@ class  Methods extends Component{
         setEditPedido(true)
       }
       const data = await response.json()
-      Alert.alert(data.message) 
+      Alert.alert(
+        "Mensaje",
+        data.message,
+        [
+          {
+            text:'Aceptar',
+            onPress:()=> this.props.navigation.navigate('NotaPedido')
+          }
+        ]
+        ) 
     }
     render(){
       const {moneda,tipoPago} = this.context;

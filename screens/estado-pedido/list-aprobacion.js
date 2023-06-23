@@ -14,7 +14,7 @@ class ListDatos extends PureComponent {
     renderItem = ({ item }) => {
         const {navigation} = this.props
       return (
-        <TouchableOpacity style={{ borderWidth: 1}} onPress={()=>navigation.navigate('EventApro',{item:item})}>
+        <TouchableOpacity style={{ borderWidth: 1,borderRadius:5}} onPress={()=>navigation.navigate('EventApro',{item:item})}>
             <Text>CLIENTE: {item.cliente}</Text>
           <View style={{flexDirection:'row',justifyContent:'space-between',paddingHorizontal:3}}>
               <View>

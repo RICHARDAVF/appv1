@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import { Text, View } from "react-native";
 import { Contex } from "../../components/global/globalContex";
 import ListDetalle from "./list-detalle";
+import { withNavigation } from "@react-navigation/compat";
 class SelectCuenta extends Component{
     static contextType = Contex
     state = {
@@ -26,13 +27,16 @@ class SelectCuenta extends Component{
     }
     render(){
         
-        
+        const {cliente} = this.props.route.params
         return(
-            <View>
+            <View style={{flex:1}}>
+                <View style={{width:'100%',justifyContent:'center',alignItems:'center',marginTop:10,marginBottom:10}}>
+                    <Text style={{fontWeight:'bold',width:'95%',borderWidth:1}}> Cliente: {cliente}</Text>
+                </View>
                 <ListDetalle data={this.state.datos}/>
             </View>
         )
     }
 }
 
-export default SelectCuenta;
+export default withNavigation(SelectCuenta);
