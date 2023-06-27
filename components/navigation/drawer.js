@@ -2,7 +2,7 @@ import { DrawerItem, DrawerItemList, createDrawerNavigator } from '@react-naviga
 import { Image, Linking, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useContext } from 'react';
 import { Contex } from '../global/globalContex';
-import { AprobacionStack, CuentaStack, EstadoPstack, HomeStack, OrderRequeStack, PedidoStack } from './stack';
+import { AproOrdenStack, AprobacionStack, CuentaStack, EstadoPstack, HomeStack, OrderRequeStack, PedidoStack } from './stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -56,11 +56,7 @@ function MyDrawer() {
       options={{title:'Inicio',drawerIcon:()=><Icon name='home' size={22}/>}}
       />
 
-      {/* <Drawer.Screen
-      name='CotizacionStack'
-      component={''}
-      options={{title:'Cotizacion',drawerIcon:()=><Icon name="file" size={22} color="black" />}}
-      /> */}
+     
       <Drawer.Screen
       name='PedidoStack'
       component={PedidoStack}
@@ -89,16 +85,16 @@ function MyDrawer() {
     <Drawer.Screen
     name='OrdenRequeStack'
     component={OrderRequeStack}
-    options={{title:'Order de Requirimiento',drawerIcon:()=><Icon name='toggle-on' size={22}/>}}
+    options={{title:'Order de Requirimiento',drawerIcon:()=><Icon name='file' size={22}/>}}
     />
-       {/*
+       
   
     <Drawer.Screen
-    name='EstadoDocsStack'
-    component={''}
-    options={{title:'Estado de Documentos',drawerIcon:()=><Icon name='toggle-on' size={22}/>}}
+    name='AproOrdenStack'
+    component={AproOrdenStack}
+    options={{title:'Aprobacion de Orden',drawerIcon:()=><Icon name='check-circle-o' size={22}/>}}
     />
-    
+    {/*
     <Drawer.Screen
     name='VentasStack'
     component={''}

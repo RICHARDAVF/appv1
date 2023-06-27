@@ -6,12 +6,16 @@ class ListCuentas extends Component{
         nav:null
     }
     componentDidMount() {
-      const {nav} = this.props
+      const {nav,data} = this.props
+      
       this.setState({nav:nav})
         setTimeout(() => {
           this.setState({ isLoading: false }); 
-        }, 3000); 
+        }, this.tiempo(data)); 
       }
+    tiempo (data){
+      return Math.ceil(data.length / 1000) * 100;
+    }
     getItemCount = () => {
         const { data } = this.props;
         return data.length;

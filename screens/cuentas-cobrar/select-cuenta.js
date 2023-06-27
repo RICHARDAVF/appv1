@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import { Text, View } from "react-native";
 import { Contex } from "../../components/global/globalContex";
 import ListDetalle from "./list-detalle";
-import { withNavigation } from "@react-navigation/compat";
+// import { withNavigation } from "@react-navigation/compat";
 class SelectCuenta extends Component{
     static contextType = Contex
     state = {
@@ -39,4 +39,4 @@ class SelectCuenta extends Component{
     }
 }
 
-export default withNavigation(SelectCuenta);
+export default SelectCuenta;

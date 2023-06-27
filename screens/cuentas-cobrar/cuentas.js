@@ -4,7 +4,7 @@ import { Contex } from "../../components/global/globalContex";
 import  Icon  from "react-native-vector-icons/FontAwesome";
 import ListCuentas from "./list-cuentas";
 import CheckBox from '@react-native-community/checkbox';
-import { withNavigation } from "@react-navigation/compat";
+// import { withNavigation } from "@react-navigation/compat";
 class Cuentas extends Component{
     static contextType= Contex
     state = {
@@ -48,20 +48,18 @@ class Cuentas extends Component{
                    <Icon name="check" size={15}/> Documentos Cancelados</Text>
                 <CheckBox
                         disabled={false}
-                        value={this.oncheck}
+                        value={this.state.oncheck}
                         onValueChange={(newValue) => this.setState({oncheck:newValue})}
                         boxType="square"
                         size={10}
                         animationDuration={0.1}
-                        
-                       
                     />
             </View>
             <ListCuentas data={data} nav={navigation} />
         </View>);
     }
 }
-export default withNavigation(Cuentas);
+export default Cuentas;
 const styles = StyleSheet.create({
     main:{
         flex:1

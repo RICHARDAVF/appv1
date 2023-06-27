@@ -28,7 +28,7 @@ function NotaPedido(){
     function buscador(palabra){
         const newData = [...data]
         const dataresult = newData.filter(item => item.nombre.includes(palabra.toUpperCase()));
-        console.log(dataresult)
+     
         setData(dataresult)       
     }
     const fetchData= async (p,moneda,alm,local)=>{

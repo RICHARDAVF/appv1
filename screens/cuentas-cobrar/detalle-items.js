@@ -1,7 +1,7 @@
 import React,{PureComponent} from "react";
 import { Alert, StyleSheet, Text, View ,VirtualizedList} from "react-native";
 import { Contex } from "../../components/global/globalContex";
-import { withNavigation } from "@react-navigation/compat";
+// import { withNavigation } from "@react-navigation/compat";
 class ItemDetalleDoc extends PureComponent{
     static contextType = Contex
     state = {
@@ -86,7 +86,7 @@ class ItemDetalleDoc extends PureComponent{
         );
     }
 }
-export default  withNavigation(ItemDetalleDoc);
+export default  ItemDetalleDoc;
 
 const styles = StyleSheet.create({
     txtsub:{

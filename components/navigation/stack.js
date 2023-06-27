@@ -15,7 +15,10 @@ import EventAprobacion from "../../screens/estado-pedido/event-aprobacion";
 import ListCuentas from "../../screens/cuentas-cobrar/cuentas";
 import SelectCuenta from "../../screens/cuentas-cobrar/select-cuenta";
 import ItemDetalleDoc from "../../screens/cuentas-cobrar/detalle-items";
-import MyComponent from "../../screens/orden-reque/orden";
+import Orden from "../../screens/orden-reque/orden";
+import AprobacionOrden from "../../screens/orden-reque/aprobacion-orden";
+import Form from "../../screens/orden-reque/form";
+
 
 const Stack = createStackNavigator()
 export const HomeStack =()=>{
@@ -76,8 +79,17 @@ export const OrderRequeStack =()=>{
     const navigation = useNavigation()
     return(
         <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
-            <Stack.Screen name="Orden" component={MyComponent} options={{title:'orden'}}/>
+            <Stack.Screen name="Orden" component={Orden} options={{title:'Orden de Requerimiento'}}/>
+            <Stack.Screen name="Form" component={Form} options={{title:'Formulario de Requerimiento'}}/>
 
+        </Stack.Navigator>
+    )
+}
+export const AproOrdenStack =()=>{
+    const navigation = useNavigation()
+    return (
+        <Stack.Navigator screenOptions={()=>navOptions(navigation)}>
+            <Stack.Screen name="AproOrden" component={AprobacionOrden} options={{title:'Aprobacion de Orden'}}/>
         </Stack.Navigator>
     )
 }

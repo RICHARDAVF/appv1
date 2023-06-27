@@ -1,6 +1,6 @@
 import React, {  PureComponent } from "react";
 import { Text, View, VirtualizedList,TouchableOpacity, StyleSheet } from "react-native";
-import { withNavigation } from "@react-navigation/compat";
+// import { withNavigation } from "@react-navigation/compat";
 class ListDetalle extends PureComponent{
     componentDidMount(){
       
@@ -56,7 +56,7 @@ class ListDetalle extends PureComponent{
         )
     }
 }
-export default withNavigation(ListDetalle);
+export default ListDetalle;
 const styles = StyleSheet.create({
   txtsub:{
     fontWeight:'bold'
