@@ -3,6 +3,8 @@ import { View,Text,TextInput, StyleSheet,LogBox, TouchableOpacity, ScrollView} f
 import DatePicker from 'react-native-datepicker';
 import { Dropdown } from 'react-native-element-dropdown';
 import RadioGroup from 'react-native-radio-buttons-group';
+import _ from 'lodash';
+
 
 class Form extends PureComponent{
     constructor(props){
@@ -24,6 +26,7 @@ class Form extends PureComponent{
     componentDidMount(){
         this.state.tipo[0].selected = true;
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+        LogBox.ignoreLogs(['componentWillReceiveProps']);
         
     }
     changeDate(newDate){
